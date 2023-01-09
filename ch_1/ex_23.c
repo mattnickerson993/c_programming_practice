@@ -5,8 +5,9 @@
 #define MULTILINE_COMMENT 0
 #define COMMENT 1
 #define NO_COMMENT -1
-#define TRUE 1
-#define FALSE 0
+#define TRUE (1 == 1)
+#define FALSE !TRUE
+
 /* 
 Goal: write a program to remove all comments from a c program
     Guidelines - c comments don't nest
@@ -17,6 +18,7 @@ Goal: write a program to remove all comments from a c program
         instead just output newline and move on
         handle special case of /star by searching for matching star/ and skipping all those lines */
 
+// test
 int get_ln(char s[], int limit);
 int check_comment(char s[]);
 int find_star(char s[]);
@@ -25,8 +27,9 @@ int main(void){
     int len, state, multi_line, stop;
 
     char current_line[LIMIT];
-    
-    while( (len = get_ln(current_line, LIMIT)) > 0){
+    printf("//remove me\n");
+    printf("/*remove me\n");
+    while( (len = get_ln(current_line, LIMIT)) > 0){ // remove me
         // check if comment, multline comment or none and handle appropriately
         state = check_comment(current_line);
         if (state == COMMENT){
@@ -66,11 +69,22 @@ int get_ln(char s[], int limit){
     return i;
 }
 
-
 // return true if comment, false if not
 int check_comment(char s[]){
     int i;
-    for(i = 0; s[i] == ' '; i++);
+    int in_block_quote = FALSE;
+    int in_comment = FALSE;
+    int in_quote = FALSE;
+
+    for(i = 0; s[i] != '\0'; i++){
+        if(!in_block_quote && !in_comment && s[i] == '"'){
+            in_quote = TRUE;
+        }
+        else if(!in_block_quote && !in_comment && s[i] == '"' && in_quote){
+            in_quote = FALSE;
+        }
+        if(!in_quote && s[i] == '/' )
+    }
     if (s[i] == '/'){
         // special case to handle
         if(s[i + 1] == '*'){
