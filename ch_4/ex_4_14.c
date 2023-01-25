@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+// have to have  the blocks or you'll get one instance of temp
 #define swap(t, x, y) {t temp = y; y = x; x = temp;}
 
 /* 
