@@ -12,6 +12,9 @@ int main(void){
     printf("Length: %d\n", str_len(&arr[0]));
     printf("Length: %d\n", str_len(ptr));
     printf("Length: %d\n", str_len(ptr_a));
+    printf("Length: %d\n", str_len(&arr[2]));
+    printf("Length: %d\n", str_len(arr + 2));
+    printf("Length: %d\n", str_len(ptr + 2));
     
     return 0;
 }
