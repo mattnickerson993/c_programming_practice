@@ -38,8 +38,10 @@ int main(int argc, char *argv[])
     manual_cutoff = 0;
 
     while(--argc > 0 && (*++argv)[0] == '-'){
+        // printf("argv now: %s\n", *argv);
         if(isdigit(c = *++argv[0])){
             if(manual_cutoff == 0){
+                // printf("argv now: %s\n", *argv);
                 manual_cutoff = atoi(*argv);
             }
             
@@ -72,7 +74,7 @@ int readlines(char *lineptr[], int maxlines, char *storage, int storage_limit)
             return -1;
         }
         else{
-            line[len - 1] = '\0';
+            line[len - 1] = '\0'; /* get rid of newline character */
             strcpy(storage, line);
             lineptr[nlines++] = storage;
         }
