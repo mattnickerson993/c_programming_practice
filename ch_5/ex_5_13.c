@@ -38,10 +38,14 @@ int main(int argc, char *argv[])
     manual_cutoff = 0;
 
     while(--argc > 0 && (*++argv)[0] == '-'){
-        // printf("argv now: %s\n", *argv);
+        printf("argv now: %s\n", *argv);
+        printf("argv now: %c\n", *argv[0]);
+        printf("argv now: %p\n", &argv);
         if(isdigit(c = *++argv[0])){
             if(manual_cutoff == 0){
-                // printf("argv now: %s\n", *argv);
+                printf("argv now: %s\n", *argv);
+                printf("argv now: %c\n", *argv[0]);
+                printf("argv now: %p\n", &argv);
                 manual_cutoff = atoi(*argv);
             }
             
