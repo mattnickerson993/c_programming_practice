@@ -36,7 +36,15 @@ int main(void){
 
     printf("ptinrect: %d\n", ptinrect(makepoint(5, 5), screen));
     printf("ptinrect: %d\n", ptinrect(makepoint(15, 15), screen));
+    
+    struct point origin, *pp;
 
+    origin.x = 12;
+    origin.y = 11;
+    pp = &origin;
+    printf("origin is (%d,%d)\n", (*pp).x, (*pp).y);
+    printf("origin addresses is %p\n", pp);
+    printf("origin is (%d,%d)\n", pp->x, pp->y);
 }
 
 /* makepoint: make a point from x and y components */
@@ -61,10 +69,13 @@ int ptinrect(struct point p, struct rect r){
             && p.y < r.pt2.y && p.x < r.pt2.x;
 }
 
-
+/* canonicalize coordinates of rectangle */
 struct rect canonrect(struct rect r){
     struct rect temp;
 
     temp.pt1.x = min(r.pt1.x, r.pt2.x);
-    // resume here 
+    temp.pt1.y = min(r.pt1.y, r.pt2.y);
+    temp.pt2.x = max(r.pt1.x, r.pt2.x);
+    temp.pt2.y = max(r.pt1.y, r.pt2.y);
+    return temp;
 }
