@@ -41,29 +41,29 @@ int binsearch(char *, struct key *, int);
 
 
 int main (void){
-    int n;
     char word[MAXWORD];
-
+    struct key *p;
     // printf("sizeof keytab: %lu\n", sizeof(keytab));
     // printf("sizeof key: %lu\n", sizeof(struct key));
     // printf("res: %d\n", strcmp("_dummy_underscore", keytab[7].word));
     // printf("res: %d\n", binsearch("_dummy_underscore", keytab, NKEYS));
     while(getword(word, MAXWORD) != EOF){
         // printf("word: %s\n", word);
-        if(isalpha(word[0]) | word[0] == '_'){
-            if((n = binsearch(word, keytab, NKEYS)) >= 0 ){
-                keytab[n].count++;
+        if(isalpha(word[0])){
+            if((p = binsearch(word, keytab, NKEYS)) >= 0 ){
+                p->count++;
             }
         }
     }
-    for(n = 0; n < NKEYS; n++){
-        if(keytab[n].count > 0){
-            printf("%4d %s\n", keytab[n].count, keytab[n].word);
+    for(p = keytab; p < keytab + NKEYS; p++){
+        if(p->count > 0){
+            printf("%4d %s\n", p->count, p->word);
         }
     }
     return 0;
 }
 
+// still needs pointer refactor
 /* find word in tab[0] ... tab[n - 1] */
 int binsearch(char *word, struct key tab[], int n){
     int cond;
