@@ -25,8 +25,6 @@ struct key keytab[] = {
     "const", 0,
     "continue", 0,
     "default", 0,
-    "_dummy_underscore", 0,
-    "my_underscore", 0,
     "unsigned", 0,
     "void", 0,
     "volatile", 0,
@@ -37,7 +35,7 @@ struct key keytab[] = {
 // or (sizeof keytab / sizeof keytab[0])
 
 int getword(char *, int);
-int binsearch(char *, struct key *, int);
+struct key  *binsearch(char *, struct key *, int);
 
 
 int main (void){
@@ -50,7 +48,7 @@ int main (void){
     while(getword(word, MAXWORD) != EOF){
         // printf("word: %s\n", word);
         if(isalpha(word[0])){
-            if((p = binsearch(word, keytab, NKEYS)) >= 0 ){
+            if((p = binsearch(word, keytab, NKEYS)) != NULL ){
                 p->count++;
             }
         }
@@ -63,18 +61,18 @@ int main (void){
     return 0;
 }
 
-// still needs pointer refactor
 /* find word in tab[0] ... tab[n - 1] */
-int binsearch(char *word, struct key tab[], int n){
+struct key  *binsearch(char *word, struct key *tab, int n){
     int cond;
-    int low, high, mid;
-    low = 0;
-    high = n - 1;
-    while(low <= high){
-        mid = (low + high) / 2;
-        printf("strcmp(%s, %s) = %d\n", word, tab[mid].word, strcmp(word, tab[mid].word));
-        if((cond = strcmp(word, tab[mid].word)) < 0){
-            high = mid - 1;
+    struct key *low = &tab[0];
+    struct key *high = &tab[n];
+    struct key *mid;
+
+    while(low < high){
+        mid = low + (high - low) / 2;
+        // printf("strcmp(%s, %s) = %d\n", word, tab[mid].word, strcmp(word, tab[mid].word));
+        if((cond = strcmp(word, mid->word)) < 0){
+            high = mid;
         }
         else if(cond > 0){
             low = mid + 1;
@@ -83,7 +81,7 @@ int binsearch(char *word, struct key tab[], int n){
             return mid;
         }
     }
-    return -1;
+    return NULL;
 }
 
 

@@ -65,6 +65,7 @@ int main (void){
 }
 
 /* find word in tab[0] ... tab[n - 1] */
+// bugs -- leading underscore -- high and low are not accurately assessed.
 int binsearch(char *word, struct key tab[], int n){
     int cond;
     int low, high, mid;
@@ -72,7 +73,7 @@ int binsearch(char *word, struct key tab[], int n){
     high = n - 1;
     while(low <= high){
         mid = (low + high) / 2;
-        printf("strcmp(%s, %s) = %d\n", word, tab[mid].word, strcmp(word, tab[mid].word));
+        // printf("strcmp(%s, %s) = %d\n", word, tab[mid].word, strcmp(word, tab[mid].word));
         if((cond = strcmp(word, tab[mid].word)) < 0){
             high = mid - 1;
         }
