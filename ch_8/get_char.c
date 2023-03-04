@@ -13,7 +13,7 @@
 // } 
 
 
-// buffered version
+// buffered version -- ie put all chars in buffer initially and read them from buffer
 int get_char(void){
     static char buf[BUFSIZE];
     static char *bufp = buf;
